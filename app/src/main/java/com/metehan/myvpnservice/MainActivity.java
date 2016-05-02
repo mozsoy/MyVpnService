@@ -10,6 +10,7 @@ import android.widget.Button;
 public class MainActivity extends Activity {
 
     Button btn1;
+    DatagramSocketThread mDatagramSocketThread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +21,9 @@ public class MainActivity extends Activity {
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Start Datagram socket at port 8087
+                mDatagramSocketThread = new DatagramSocketThread();
+                mDatagramSocketThread.start();
                 Intent intent = VpnService.prepare(getApplicationContext());
                 if (intent != null) {
                     startActivityForResult(intent, 0);
